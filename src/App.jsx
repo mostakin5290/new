@@ -46,9 +46,9 @@ const App = () => {
     //     dispatch(checkAuth());
     // }, [dispatch]);
 
-    if (loading) {
-        return <Loading />;
-    }
+    // if (loading) {
+    //     return <Loading />;
+    // }
 
     return (
         <>
