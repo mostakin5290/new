@@ -29,19 +29,19 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const checkAuth = createAsyncThunk(
-  'auth/check',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { data } = await axiosClient.get('/user/check');
-      return data.user;
-    } catch (error) {
-      console.log(error)
-      // No need to pass a message here, rejection is enough to signify "not authenticated"
-      return rejectWithValue();
-    }
-  }
-);
+// export const checkAuth = createAsyncThunk(
+//   'auth/check',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const { data } = await axiosClient.get('/user/check');
+//       return data.user;
+//     } catch (error) {
+//       console.log(error+rejectWithValue)
+//       // No need to pass a message here, rejection is enough to signify "not authenticated"
+//       return rejectWithValue();
+//     }
+//   }
+// );
 
 export const logoutUser = createAsyncThunk(
   'auth/logout',
@@ -87,7 +87,7 @@ const authSlice = createSlice({
 
       // These actions set isAuthenticated and user state upon success
       .addMatcher(
-        isAnyOf(registerUser.fulfilled, loginUser.fulfilled, checkAuth.fulfilled),
+        isAnyOf(registerUser.fulfilled, loginUser.fulfilled),
         (state, action) => {
           state.isAuthenticated = !!action.payload; // true if user object exists, false if null
           state.user = action.payload;
@@ -105,7 +105,7 @@ const authSlice = createSlice({
 
       // These actions handle all rejection cases
       .addMatcher(
-        isAnyOf(registerUser.rejected, loginUser.rejected, logoutUser.rejected, checkAuth.rejected),
+        isAnyOf(registerUser.rejected, loginUser.rejected, logoutUser.rejected),
         (state, action) => {
           state.loading = false;
           state.isAuthenticated = false;
@@ -119,8 +119,8 @@ const authSlice = createSlice({
       // This includes checkAuth, which shouldn't have a visible loading state.
       .addMatcher(
         isAnyOf(
-          registerUser.fulfilled, loginUser.fulfilled, checkAuth.fulfilled, logoutUser.fulfilled,
-          registerUser.rejected, loginUser.rejected, checkAuth.rejected, logoutUser.rejected
+          registerUser.fulfilled, loginUser.fulfilled, logoutUser.fulfilled,
+          registerUser.rejected, loginUser.rejected, logoutUser.rejected
         ),
         (state) => {
           state.loading = false;
