@@ -1,7 +1,7 @@
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
-import { checkAuth } from './features/auth/authSlice';
+// import { checkAuth } from './features/auth/authSlice';
 
 // --- Page Imports ---
 import FrontPage from "./Pages/FrontPage";
@@ -42,9 +42,9 @@ const App = () => {
     const { isAuthenticated, loading } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(checkAuth());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(checkAuth());
+    // }, [dispatch]);
 
     if (loading) {
         return <Loading />;
