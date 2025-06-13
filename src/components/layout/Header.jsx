@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutUser, checkAuth } from '../../features/auth/authSlice';
+import { logoutUser } from '../../features/auth/authSlice';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -12,9 +12,9 @@ const Header = () => {
     const [scrolled, setScrolled] = useState(false);
 
     // Check auth status on component mount
-    useEffect(() => {
-        dispatch(checkAuth());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(checkAuth());
+    // }, [dispatch]);
 
     // Handle scroll effect for header
     useEffect(() => {
